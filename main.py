@@ -47,7 +47,7 @@ class EliteWarrior(Warrior):
         if target.is_alive() == False:
             self.__num_victories += 1
 
-    def get_num_victories(self):
+    def get_victories(self):
         return self.__num_victories
 
     def is_veteran(self):
@@ -61,13 +61,15 @@ class Mage(Hero):
         super().__init__(name, health)
         self.__mana = mana
 
+    def cast_fireball(self, target):
+        if self.__mana >= 30:
+            self.__mana -= 30
+            target.take_damage(40)
+        else:
+            raise Exception("Not enough mana")
 
+    def get_mana(self):
+        return self.__mana
 
-guts = Hero("Guts", 31)
-optimus = Warrior("Optimus", 500, 100)
-bruce_lee = EliteWarrior("Bruce Lee", 50, 100)
-
-print(f"DEBUG: Number of victories = {bruce_lee.get_num_victories()}")
-bruce_lee.power_attack(guts)
-print(f"DEBUG: Number of victories = {bruce_lee.get_num_victories()}")
-print(f"DEBUG: Is veteran = {bruce_lee.is_veteran()}")
+    def meditate(self):
+        self.__mana += 20
