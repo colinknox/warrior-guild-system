@@ -18,13 +18,26 @@ class Hero:
     def heal(self, amount):
         self.health += amount
 
-    
-guts = Hero("Guts", 100)
+class Warrior(Hero):
+    def __init__(self, name, health, stamina):
+        super().__init__(name, health)
+        self.__stamina = stamina
 
-# print(f"DEBUG: Name = {guts.name}")
-print(f"DEBUG: Health = {guts.health}")
-guts.take_damage(100)
-print(f"DEBUG: Health = {guts.health}")
-guts.heal(56)
-print(f"DEBUG: Health = {guts.health}")
-print(f"DEBUG: Is alive? = {guts.is_alive()}")
+    def power_attack(self, target):
+        if self.__stamina >= 20:
+            self.__stamina -= 20
+            target.take_damage(30)
+        else:
+            raise Exception("Not enough stamina")
+
+    def get_stamina(self):
+        return self.__stamina
+    
+    def rest(self):
+        self.__stamina += 10
+
+
+
+guts = Hero("Guts", 100)
+optimus = Warrior("Optimus", 500, 100)
+
